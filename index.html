@@ -15,43 +15,58 @@
     <br>
     <button id="submit" type="button">Register</button>
   </form>
+
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
+    // Import the functions you need from the SDKs you need (Using Firebase v11.1.0)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
     
+    // Firebase configuration from your new project
     const firebaseConfig = {
-      apiKey: "AIzaSyDD7wYR16lWYvHN6FlvZu9UpLzXW8dw5Mo",
-      authDomain: "login-72844.firebaseapp.com",
-      projectId: "login-72844",
-      storageBucket: "login-72844.appspot.com",
-      messagingSenderId: "856995387716",
-      appId: "1:856995387716:web:00a49160d4a84e08c29f11"
+      apiKey: "AIzaSyDRhYwxR2O1zeQFZQf_A70Jf4zNESlBfPc",
+      authDomain: "dbase-a9d5a.firebaseapp.com",
+      projectId: "dbase-a9d5a",
+      storageBucket: "dbase-a9d5a.firebasestorage.app",
+      messagingSenderId: "16367447538",
+      appId: "1:16367447538:web:0eb42e275dbb4d2860cf6b"
     };
 
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    const submit = document.getElementById('submit');
-    submit.addEventListener("click", function (event) {
-      event.preventDefault();
+    // DOM elements for email, password, and submit button
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const submitButton = document.getElementById('submit');
 
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
+    // Event listener for form submission
+    submitButton.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent form submission
 
+      // Get email and password values from input fields
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      // Validate email and password
       if (!email || !password) {
-        alert("Please enter both email and password.");
+        alert('Please enter both email and password.');
         return;
       }
 
+      // Create user with Firebase Authentication
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          alert("User registered successfully!");
+          alert('User registered successfully!');
         })
         .catch((error) => {
-          alert(`Error: ${error.message}`);
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert(`Error: ${errorMessage}`);
         });
     });
   </script>
 </body>
 </html>
+
